@@ -97,7 +97,12 @@ public class Wolf extends Creature {
                 int numtoBorn = random.nextInt(move_choices.size());
                 Point toBorn = move_choices.get(numtoBorn);
                 move_choices.remove(numtoBorn);
-                livingSpace.createCreature(toBorn, 'W', true);
+                boolean newbornMale = random.nextBoolean();
+                if (newbornMale)
+                    livingSpace.createCreature(toBorn, 'W', true);
+                else
+                    livingSpace.createCreature(toBorn, 'w', true);
+
             }
             if (move_choices.size() > 0) {
                 Point toMove = move_choices.get(random.nextInt(move_choices.size()));

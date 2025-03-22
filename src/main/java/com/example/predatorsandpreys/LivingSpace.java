@@ -108,12 +108,12 @@ public class LivingSpace extends Pane {
         setWidthCells(width);
         setHeightCells(height);
         fieldInitialization();
-        System.out.println("Поле инициализировано.");
+        //System.out.println("Поле инициализировано.");
         setBunnyAmount(bunnyAmount);
         setWolfMAmount(wolfMAmount);
         setWolfFAmount(wolfFAmount);
         putCreatures();
-        System.out.println("B" + this.bunnyAmount + " WM" + this.wolfMAmount + " WF" + this.wolfFAmount);
+        //System.out.println("B" + this.bunnyAmount + " WM" + this.wolfMAmount + " WF" + this.wolfFAmount);
         this.cellxpx = this.widthpx / this.width;
         this.cellypx = this.heightpx / this.height;
         this.canvas = new Canvas(this.widthpx, this.heightpx);
@@ -345,7 +345,7 @@ public class LivingSpace extends Pane {
         stats.put("wolf_multiply", wolfMultiplyCount);
         stats.put("bunny_dead", rabbitDeadCount);
         stats.put("wolf_dead", wolfDeadCount);
-        System.out.println(stats);
+        //System.out.println(stats);
         String maxKey = Collections.max(stats.entrySet(), Map.Entry.comparingByValue()).getKey();
         if (maxKey.equals("bunny_move")) {
             audioManager.addSound(rabbitMoveSound);

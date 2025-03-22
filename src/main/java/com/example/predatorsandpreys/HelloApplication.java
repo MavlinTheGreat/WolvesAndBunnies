@@ -46,7 +46,7 @@ public class HelloApplication extends Application {
     CheckBox wolfMCheckbox;
     CheckBox wolfFCheckbox;
 
-    // TODO: ЭУ Графика
+    // График
     LineChart<Number, Number> lineChart;
     XYChart.Series<Number, Number> bunniesSeries;
     XYChart.Series<Number, Number> wolfsSeries;
@@ -93,6 +93,8 @@ public class HelloApplication extends Application {
         wolfFCheckbox = new CheckBox("Волки (F)");
         bunniesCheckbox.setSelected(true);
         wolfsCheckbox.setSelected(true);
+        wolfMCheckbox.setSelected(true);
+        wolfFCheckbox.setSelected(true);
 
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -107,6 +109,7 @@ public class HelloApplication extends Application {
         wolfFSeries = new XYChart.Series<>();
         wolfFSeries.setName("Волки (F)");
         lineChart.getData().addAll(bunniesSeries, wolfsSeries, wolfMSeries, wolfFSeries);
+        lineChart.setAnimated(false);
 
         livingSpace = new LivingSpace();
         livingSpace.setHealthLimit(10);
@@ -116,6 +119,7 @@ public class HelloApplication extends Application {
         updateChart();
 
         HBox global_layout = new HBox(10);
+        global_layout.setFillHeight(true);
         VBox setting_layout = new VBox(10);
         HBox control_layout = new HBox();
         HBox info_layout = new HBox(10, stepLabel, bunnyCountLabel, wolfMCountLabel, wolfFCountLabel);
@@ -181,6 +185,41 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(global_layout, 1280, 720);
         stage.setScene(scene);
         stage.show();
+
+        bunniesCheckbox.setOnAction(event -> {
+            if (lineChart.getData().contains(bunniesSeries))
+                lineChart.getData().remove(bunniesSeries);
+            else
+                lineChart.getData().add(bunniesSeries);
+        });
+
+        wolfMCheckbox.setOnAction(event -> {
+            if (lineChart.getData().contains(wolfMSeries))
+                lineChart.getData().remove(wolfMSeries);
+            else
+                lineChart.getData().add(wolfMSeries);
+        });
+
+        wolfFCheckbox.setOnAction(event -> {
+            if (lineChart.getData().contains(wolfFSeries)) {
+                lineChart.getData().remove(wolfFSeries);
+                wolfFCheckbox.setSelected(false);
+            }
+            else {
+                lineChart.getData().add(wolfFSeries);
+                wolfFCheckbox.setSelected(true);
+            }
+        });
+        wolfsCheckbox.setOnAction(event -> {
+            if (lineChart.getData().contains(wolfsSeries)) {
+                lineChart.getData().remove(wolfsSeries);
+                wolfFCheckbox.setSelected(false);
+            }
+            else {
+                lineChart.getData().add(wolfsSeries);
+                wolfsCheckbox.setSelected(true);
+            }
+        });
     }
 
     private void stopSimulation() {
@@ -194,7 +233,7 @@ public class HelloApplication extends Application {
         stepLabel.setText("Шаг " + livingSpace.getStep());
         bunnyCountLabel.setText("Кроликов: " + livingSpace.getBunnyAmount());
         wolfMCountLabel.setText("Волков: " + livingSpace.getWolfMAmount());
-        wolfFCountLabel.setText("Волчих: " + livingSpace.getWolfFAmount());
+        wolfFCountLabel.setText("Волчиц: " + livingSpace.getWolfFAmount());
     }
 
     private void updateChart() {
@@ -211,6 +250,7 @@ public class HelloApplication extends Application {
         wolfFSeries.getData().clear();
         updateChart();
     }
+
 
 
     public static void main(String[] args) {
